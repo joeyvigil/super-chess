@@ -1,0 +1,52 @@
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.board-container {
+  width: 100%;
+}
+
+.info {
+  min-height: 28px;
+  font-size: 0.95rem;
+}
+
+.thinking {
+  color: #888;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.result {
+  font-weight: 600;
+  color: #f0c040;
+}
+
+.new-game {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 8px;
+  background: #16213e;
+  color: #eee;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.new-game:hover {
+  background: #0f3460;
+}
