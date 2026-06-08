@@ -25,4 +25,4 @@ Open the Vite URL (usually `http://localhost:5173`) and drag pieces to play.
 
 ## GH pages
 
-link: (here)
+Play Here: https://joeyvigil.github.io/super-chess/
