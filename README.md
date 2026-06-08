@@ -22,3 +22,7 @@ npm run dev
 ```
 
 Open the Vite URL (usually `http://localhost:5173`) and drag pieces to play.
+
+## GH pages
+
+link: (here)
