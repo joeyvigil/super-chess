@@ -4,19 +4,7 @@ super-chess is a fully client-side React app (no backend). Deploy it as static f
 
 ---
 
-## 1. Build
-
-```bash
-cd /home/joeyvigil/Projects/super-chess
-npm install
-npm run build
-```
-
-The output goes to `dist/`.
-
----
-
-## 2. Launch an EC2 instance
+## 1. Launch an EC2 instance
 
 1. Open the [EC2 console](https://console.aws.amazon.com/ec2/) → **Launch instance**.
 2. **Name**: `super-chess`
@@ -32,37 +20,38 @@ The output goes to `dist/`.
 
 ---
 
-## 3. Upload the built files
-
-```bash
-scp -i /path/to/your-key.pem -r dist/* ubuntu@<PUBLIC_IP>:/home/ubuntu/super-chess/
-```
-
----
-
-## 4. Configure the instance
-
-SSH in:
+## 2. SSH in and clone the repo
 
 ```bash
 ssh -i /path/to/your-key.pem ubuntu@<PUBLIC_IP>
 ```
 
 ```bash
-# Install Nginx
-sudo apt update && sudo apt install -y nginx
+# Install Node.js (LTS)
+sudo apt update && sudo apt install -y nginx nodejs npm
 
-# Move files to web root
+# Clone the project
+git clone https://github.com/joeyvigil/super-chess.git
+cd super-chess
+
+# Install dependencies and build
+npm install
+npm run build
+```
+
+---
+
+## 3. Move the built files to the web root
+
+```bash
 sudo mkdir -p /var/www/super-chess
-sudo mv /home/ubuntu/super-chess/* /var/www/super-chess/
-
-# Set ownership
+sudo cp -r dist/* /var/www/super-chess/
 sudo chown -R www-data:www-data /var/www/super-chess
 ```
 
 ---
 
-## 5. Nginx config
+## 4. Nginx config
 
 ```bash
 sudo nano /etc/nginx/sites-available/super-chess
@@ -99,13 +88,13 @@ sudo nginx -t && sudo systemctl reload nginx
 
 ---
 
-## 6. Verify
+## 5. Verify
 
 Visit `http://<PUBLIC_IP>` in a browser. You should see super-chess.
 
 ---
 
-## 7. (Optional) Domain + SSL with Let's Encrypt
+## 6. (Optional) Domain + SSL with Let's Encrypt
 
 ```bash
 # Point your domain's A record to <PUBLIC_IP>, then:
@@ -116,10 +105,13 @@ sudo certbot --nginx -d yourdomain.com
 
 ---
 
-## 8. Updates
-
-Re-build, re-upload (`scp` as in step 3), then on the server:
+## 7. Updates
 
 ```bash
-sudo cp -r /home/ubuntu/super-chess/* /var/www/super-chess/
+ssh -i /path/to/your-key.pem ubuntu@<PUBLIC_IP>
+cd ~/super-chess
+git pull
+npm install
+npm run build
+sudo cp -r dist/* /var/www/super-chess/
 ```
